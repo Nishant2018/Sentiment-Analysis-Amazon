@@ -72,3 +72,48 @@ lemmatizer = WordNetLemmatizer()
 lemmatized_tokens = [lemmatizer.lemmatize(token) for token in filtered_tokens]
 
 print(lemmatized_tokens)
+```
+
+### 3. Feature Extraction
+
+```python
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# Example corpus
+corpus = [
+    "I love this product! It's amazing.",
+    "I hate this product. It's terrible.",
+    "This product is okay, not great but not bad either."
+]
+
+# TF-IDF Vectorization
+vectorizer = TfidfVectorizer()
+X = vectorizer.fit_transform(corpus)
+
+print(X.toarray())
+```
+
+### 4. Model Training
+
+```python
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score
+
+# Example labels
+y = ['positive', 'negative', 'neutral']
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+
+# Training Naive Bayes model
+model = MultinomialNB()
+model.fit(X_train, y_train)
+
+# Predictions
+y_pred = model.predict(X_test)
+
+# Evaluation
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Accuracy: {accuracy}')
+```
